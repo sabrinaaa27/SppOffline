@@ -31,3 +31,6 @@ Tidak membutuhkan PHP, MySQL, Node.js, XAMPP, atau server.
 
 ## Catatan database
 Karena offline tanpa server, IndexedDB menjadi database lokal pada browser/perangkat yang digunakan. Backup berkala menggunakan menu Export JSON agar data tidak hilang saat browser dibersihkan.
+
+## Verifikasi login offline
+Verifikasi SHA-256 dilakukan sepenuhnya di JavaScript lokal agar login tetap berjalan ketika `index.html` dibuka langsung melalui `file://`, tanpa ketergantungan pada server atau Web Crypto API.

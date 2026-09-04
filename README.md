@@ -1,36 +1,24 @@
-# SIM SPP — Sistem Informasi Manajemen SPP & Pembayaran Sekolah
+# SIM SPP Sekolah — Offline
 
-Aplikasi offline tanpa server untuk tugas Sistem Informasi Manajemen SPP.
+Aplikasi web murni HTML/CSS/JS tanpa server. Data transaksi disimpan di localStorage browser.
 
 ## Login
-Username: `sabrina`
-Password: `juraini`
+Username: sabrina
+Password: juraini
 
-Password diverifikasi menggunakan SHA-256. Hash juga tersedia di `data/admin.json`.
+Credential ada di `data/admin.json`. Untuk memastikan aplikasi tetap dapat dibuka dengan double-click pada `index.html`, credential yang sama juga disertakan sebagai konfigurasi inline di `index.html`.
 
-## Fitur utama
-- Login admin offline.
-- Dashboard periode bulanan dengan total tagihan, penerimaan, saldo tunggakan, dan status lunas.
-- Data siswa: tambah, edit, nonaktif, hapus, dan histori pembayaran per siswa.
-- Master tarif SPP berdasarkan kelas.
-- Generate tagihan SPP otomatis untuk siswa aktif berdasarkan tarif kelas.
-- Tagihan individu jika hanya ingin menagihkan siswa tertentu.
-- Pembayaran penuh maupun sebagian; nominal dibatasi agar tidak melebihi sisa tagihan.
-- Metode pembayaran: Tunai, Transfer, QRIS.
-- Histori seluruh transaksi.
-- Bukti pembayaran siap cetak.
-- Laporan tunggakan siswa per periode.
-- Rekap tagihan/pembayaran dan cetak laporan.
-- Export/Import database JSON.
-- Database transaksi memakai IndexedDB pada browser.
+## Fitur
+- Login admin offline
+- Dashboard
+- Data siswa
+- Tarif SPP per kelas
+- Generate tagihan bulanan
+- Pembayaran sebagian/penuh
+- Histori pembayaran per siswa
+- Laporan tunggakan
+- Laporan SPP bulanan
+- Cetak bukti pembayaran dan laporan
+- Backup / restore JSON
 
-## Cara menjalankan
-Ekstrak ZIP lalu buka `index.html` pada browser modern.
-
-Tidak membutuhkan PHP, MySQL, Node.js, XAMPP, atau server.
-
-## Catatan database
-Karena offline tanpa server, IndexedDB menjadi database lokal pada browser/perangkat yang digunakan. Backup berkala menggunakan menu Export JSON agar data tidak hilang saat browser dibersihkan.
-
-## Verifikasi login offline
-Verifikasi SHA-256 dilakukan sepenuhnya di JavaScript lokal agar login tetap berjalan ketika `index.html` dibuka langsung melalui `file://`, tanpa ketergantungan pada server atau Web Crypto API.
+Tidak membutuhkan XAMPP, PHP, Node.js, MySQL, atau server.

@@ -1,24 +1,33 @@
 # SIM SPP — Sistem Informasi Manajemen SPP & Pembayaran Sekolah
 
-Aplikasi web **offline tanpa server** menggunakan HTML, CSS, dan JavaScript. Database utama menggunakan **IndexedDB** pada browser.
+Aplikasi offline tanpa server untuk tugas Sistem Informasi Manajemen SPP.
 
-## Login demo
-- Username: `sabrina`
-- Password: `juraini`
-- Hash SHA-256 disimpan di `data/admin.json`
+## Login
+Username: `sabrina`
+Password: `juraini`
 
-## Fitur
-- Login admin dengan verifikasi SHA-256 via Web Crypto API.
-- Dashboard ringkasan tagihan, pembayaran, tunggakan, dan status pembayaran.
-- CRUD data siswa.
-- Generate tagihan SPP bulanan.
-- Catat pembayaran beserta metode dan histori transaksi.
-- Laporan tunggakan.
-- Laporan pemasukan bulanan/tahunan.
-- Cetak laporan.
-- Export/import backup database JSON.
+Password diverifikasi menggunakan SHA-256. Hash juga tersedia di `data/admin.json`.
 
-## Menjalankan
-Ekstrak ZIP, lalu buka `index.html` di browser modern.
+## Fitur utama
+- Login admin offline.
+- Dashboard periode bulanan dengan total tagihan, penerimaan, saldo tunggakan, dan status lunas.
+- Data siswa: tambah, edit, nonaktif, hapus, dan histori pembayaran per siswa.
+- Master tarif SPP berdasarkan kelas.
+- Generate tagihan SPP otomatis untuk siswa aktif berdasarkan tarif kelas.
+- Tagihan individu jika hanya ingin menagihkan siswa tertentu.
+- Pembayaran penuh maupun sebagian; nominal dibatasi agar tidak melebihi sisa tagihan.
+- Metode pembayaran: Tunai, Transfer, QRIS.
+- Histori seluruh transaksi.
+- Bukti pembayaran siap cetak.
+- Laporan tunggakan siswa per periode.
+- Rekap tagihan/pembayaran dan cetak laporan.
+- Export/Import database JSON.
+- Database transaksi memakai IndexedDB pada browser.
 
-> Catatan teknis: sebagian browser membatasi `fetch()` ke file JSON ketika halaman dibuka langsung melalui `file://`. Agar aplikasi tetap bisa login dalam mode lokal, `app.js` memiliki fallback konfigurasi admin yang identik dengan `data/admin.json`. File JSON tetap disediakan sebagai sumber konfigurasi yang jelas dan dapat dipindahkan/diubah bersama proyek.
+## Cara menjalankan
+Ekstrak ZIP lalu buka `index.html` pada browser modern.
+
+Tidak membutuhkan PHP, MySQL, Node.js, XAMPP, atau server.
+
+## Catatan database
+Karena offline tanpa server, IndexedDB menjadi database lokal pada browser/perangkat yang digunakan. Backup berkala menggunakan menu Export JSON agar data tidak hilang saat browser dibersihkan.

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SIM SPP — Sistem Informasi Manajemen SPP</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="loginScreen" class="login-screen">
+    <div class="login-card">
+      <div class="brand-mark">S</div>
+      <h1>SIM SPP</h1>
+      <p class="muted">Sistem Informasi Manajemen SPP & Pembayaran Sekolah</p>
+      <form id="loginForm">
+        <label>Username<input id="username" type="text" autocomplete="username" required placeholder="Username admin" /></label>
+        <label>Password<input id="password" type="password" autocomplete="current-password" required placeholder="Password" /></label>
+        <button class="btn btn-primary btn-full" type="submit">Masuk ke Sistem</button>
+        <div id="loginError" class="error-text"></div>
+      </form>
+      <div class="login-note">Mode offline • Data tersimpan di perangkat ini</div>
+    </div>
+  </div>
+
+  <div id="app" class="app hidden">
+    <aside class="sidebar">
+      <div class="sidebar-brand"><span class="brand-mark small">S</span><div><strong>SIM SPP</strong><small>Admin Panel</small></div></div>
+      <nav>
+        <button class="nav-item active" data-section="dashboard">◼ <span>Dashboard</span></button>
+        <button class="nav-item" data-section="students">◉ <span>Data Siswa</span></button>
+        <button class="nav-item" data-section="bills">▤ <span>Tagihan SPP</span></button>
+        <button class="nav-item" data-section="payments">▣ <span>Pembayaran</span></button>
+        <button class="nav-item" data-section="arrears">! <span>Tunggakan</span></button>
+        <button class="nav-item" data-section="reports">▥ <span>Laporan</span></button>
+      </nav>
+      <div class="sidebar-bottom"><button id="logoutBtn" class="nav-item">↪ <span>Keluar</span></button></div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar"><div><h2 id="pageTitle">Dashboard</h2><p id="pageSubtitle">Ringkasan kondisi pembayaran SPP</p></div><div class="admin-chip"><span class="avatar">S</span><div><b id="adminName">Sabrina</b><small>Administrator</small></div></div></header>
+
+      <section id="dashboard" class="section active">
+        <div class="toolbar"><div><h3>Ikhtisar</h3><p class="muted">Pantau tagihan dan pembayaran bulan berjalan.</p></div><div class="inline"><label>Bulan<select id="dashboardMonth"></select></label><label>Tahun<select id="dashboardYear"></select></label></div></div>
+        <div class="stats-grid">
+          <div class="stat-card"><div class="stat-icon">Rp</div><div><span>Total Tagihan</span><strong id="statBilled">Rp0</strong></div></div>
+          <div class="stat-card"><div class="stat-icon">✓</div><div><span>Total Terbayar</span><strong id="statPaid">Rp0</strong></div></div>
+          <div class="stat-card"><div class="stat-icon">!</div><div><span>Total Tunggakan</span><strong id="statArrears">Rp0</strong></div></div>
+          <div class="stat-card"><div class="stat-icon">👥</div><div><span>Siswa</span><strong id="statStudents">0</strong></div></div>
+        </div>
+        <div class="dashboard-grid"><div class="panel"><div class="panel-head"><h3>Status Pembayaran</h3><span id="statusCaption" class="badge">-</span></div><div class="status-chart"><div class="donut" id="donut"><div><b id="paidPercent">0%</b><span>lunas</span></div></div><div class="legend"><div><i class="dot paid"></i><span>Lunas</span><b id="paidCount">0</b></div><div><i class="dot partial"></i><span>Belum Lunas</span><b id="unpaidCount">0</b></div><div><i class="dot none"></i><span>Belum Ditagih</span><b id="noneCount">0</b></div></div></div></div>
+          <div class="panel"><div class="panel-head"><h3>Pembayaran Terbaru</h3><button class="link-btn" data-section="payments">Lihat semua →</button></div><div id="recentPayments" class="table-wrap"></div></div></div>
+      </section>
+
+      <section id="students" class="section">
+        <div class="toolbar"><div><h3>Data Siswa</h3><p class="muted">Kelola data siswa sebagai basis tagihan.</p></div><button class="btn btn-primary" id="addStudentBtn">+ Tambah Siswa</button></div>
+        <div class="panel"><div class="filter-row"><input id="studentSearch" class="search" placeholder="Cari NIS, nama, atau kelas…" /><select id="studentStatusFilter"><option value="all">Semua status</option><option value="active">Aktif</option><option value="inactive">Tidak aktif</option></select></div><div id="studentsTable" class="table-wrap"></div></div>
+      </section>
+
+      <section id="bills" class="section">
+        <div class="toolbar"><div><h3>Tagihan SPP</h3><p class="muted">Buat dan pantau tagihan bulanan siswa.</p></div><div class="inline"><label>Bulan<select id="billMonth"></select></label><label>Tahun<select id="billYear"></select></label><button class="btn btn-primary" id="generateBillsBtn">⚡ Generate Tagihan</button></div></div>
+        <div class="panel"><div class="filter-row"><input id="billSearch" class="search" placeholder="Cari NIS atau nama siswa…" /><select id="billStatusFilter"><option value="all">Semua status</option><option value="unpaid">Belum bayar</option><option value="partial">Sebagian</option><option value="paid">Lunas</option></select></div><div id="billsTable" class="table-wrap"></div></div>
+      </section>
+
+      <section id="payments" class="section">
+        <div class="toolbar"><div><h3>Transaksi Pembayaran</h3><p class="muted">Catat pembayaran dan lihat histori transaksi.</p></div><button class="btn btn-primary" id="addPaymentBtn">+ Catat Pembayaran</button></div>
+        <div class="panel"><div class="filter-row"><input id="paymentSearch" class="search" placeholder="Cari nomor transaksi, NIS, atau nama…" /><select id="paymentMonthFilter"></select></div><div id="paymentsTable" class="table-wrap"></div></div>
+      </section>
+
+      <section id="arrears" class="section">
+        <div class="toolbar"><div><h3>Laporan Tunggakan</h3><p class="muted">Daftar siswa yang masih memiliki saldo tagihan.</p></div><button class="btn" id="printArrearsBtn">🖨 Cetak Tunggakan</button></div>
+        <div class="panel"><div id="arrearsSummary" class="mini-summary"></div><div id="arrearsTable" class="table-wrap"></div></div>
+      </section>
+
+      <section id="reports" class="section">
+        <div class="toolbar"><div><h3>Laporan</h3><p class="muted">Ringkasan pemasukan SPP dan histori pembayaran.</p></div><button class="btn" id="printReportBtn">🖨 Cetak Laporan</button></div>
+        <div class="report-controls"><label>Periode<select id="reportPeriod"><option value="month">Bulanan</option><option value="year">Tahunan</option></select></label><label>Bulan<select id="reportMonth"></select></label><label>Tahun<select id="reportYear"></select></label></div>
+        <div class="report-cards"><div><span>Tagihan</span><b id="reportBilled">Rp0</b></div><div><span>Dibayar</span><b id="reportPaid">Rp0</b></div><div><span>Sisa</span><b id="reportBalance">Rp0</b></div><div><span>Transaksi</span><b id="reportTransactions">0</b></div></div>
+        <div class="panel"><div class="panel-head"><h3>Rincian Laporan</h3></div><div id="reportTable" class="table-wrap"></div></div>
+        <div class="panel backup-panel"><div><h3>Backup Data Lokal</h3><p class="muted">Ekspor database untuk cadangan, lalu impor kembali di perangkat lain.</p></div><div class="inline"><button class="btn" id="exportBtn">⬇ Export JSON</button><label class="file-btn">⬆ Import JSON<input id="importInput" type="file" accept="application/json" hidden /></label></div></div>
+      </section>
+    </main>
+  </div>
+
+  <div id="modal" class="modal hidden"><div class="modal-card"><div class="modal-head"><h3 id="modalTitle">Modal</h3><button class="icon-btn" id="modalClose">×</button></div><div id="modalBody"></div></div></div>
+  <div id="toast" class="toast"></div>
+  <script src="app.js"></script>
+</body>
+</html>
